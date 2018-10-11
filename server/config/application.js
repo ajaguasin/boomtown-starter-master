@@ -11,11 +11,6 @@ module.exports = app => {
   app.set('PG_PASSWORD', process.env.PG_PASSWORD || 'boomtown');
   app.set('PG_DB', process.env.PG_DB || 'boomtown');
 
-  console.log(process.env.PG_USER);
-  console.log(process.env.PG_HOST);
-  console.log(process.env.PG_PASSWORD);
-  console.log(process.env.PG_DB);
-
   /**
    *  @TODO: Configuration Variables
    *
