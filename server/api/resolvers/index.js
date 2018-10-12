@@ -122,7 +122,7 @@ module.exports = app => {
        *
        */
       // @TODO: Uncomment these lines after you define the Item type with these fields
-      async itemowner(parent, _, { pgResource }) {
+      async ownerid(parent, _, { pgResource }) {
         try {
           const user = await pgResource.getUserById(parent.ownerid);
           return user;
@@ -183,11 +183,11 @@ module.exports = app => {
          *  destructuring should look like.
          */
 
-        // image = await image;
+        image = await image;
         const user = await jwt.decode(context.token, app.get('JWT_SECRET'));
         const newItem = await context.pgResource.saveNewItem({
           item: args.item,
-          // image: args.image,
+          image: args.image,
           user
         });
         return newItem;

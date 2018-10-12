@@ -130,9 +130,10 @@ module.exports = postgres => {
            *  @TODO: Advanced queries
            *  Get all Items. Hint: You'll need to use a LEFT INNER JOIN among others
            */
-          text: `SELECT items.title FROM items WHERE items.ownerid = $1`,
+          text: `SELECT * FROM items WHERE items.ownerid = $1`,
           values: [rootID]
         });
+        console.log(items.rows);
         return items.rows;
       } catch (error) {
         throw 'Items for user cannot be found';
@@ -145,7 +146,7 @@ module.exports = postgres => {
            *  @TODO: Advanced queries
            *  Get all Items. Hint: You'll need to use a LEFT INNER JOIN among others
            */
-          text: `SELECT items.title FROM items WHERE items.borrowerid = $1`,
+          text: `SELECT * FROM items WHERE items.borrowerid = $1`,
           values: [rootID]
         });
         return items.rows;
@@ -166,7 +167,7 @@ module.exports = postgres => {
     async getTagsForItem(rootID) {
       try {
         const tagsQuery = {
-          text: `SELECT itemtags.tagid, tags.title from itemtags INNER JOIN tags ON (itemtags.tagid = tags.id) where itemid = $1`, // @TODO: Advanced queries
+          text: `SELECT itemtags.tagid, tags.title, tags.id from itemtags INNER JOIN tags ON (itemtags.tagid = tags.id) where itemid = $1`, // @TODO: Advanced queries
           values: [rootID]
         };
         const tags = await postgres.query(tagsQuery);
