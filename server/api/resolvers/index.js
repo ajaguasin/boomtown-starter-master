@@ -45,6 +45,10 @@ module.exports = app => {
           throw new ApolloError(e);
         }
       },
+      async item(parent, { id }, { pgResource }) {
+        const item = await pgResource.getItem(id);
+        return item.rows[0];
+      },
       async tags(parent, { id }, { pgResource }) {
         try {
           const tags = await pgResource.getTags();

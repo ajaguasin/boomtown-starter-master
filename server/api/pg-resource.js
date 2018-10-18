@@ -72,6 +72,12 @@ module.exports = postgres => {
         throw 'Items not found';
       }
     },
+    async getItem(id) {
+      return postgres.query({
+        text: `SELECT * FROM items WHERE items.id = $1 `,
+        values: [id]
+      });
+    },
     async getItemsForUser(rootID) {
       try {
         const items = await postgres.query({
