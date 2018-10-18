@@ -30,8 +30,18 @@ const ItemFields = gql`
   }
 `;
 export const ITEM_QUERY = gql`
-  query items($filter: ID!) {
+  query item($id: ID!) {
     # @TODO: Query an item by its id and return the ItemFields fragment.
+    item(id: $id) {
+      ...ItemFields
+    }
+  }
+  ${ItemFields}
+`;
+
+export const ALL_ITEMS_QUERY = gql`
+  query items($filter: ID) {
+    # @TODO: Query items (optionally by tag id) and return the ItemFields fragment.
     items(filter: $filter) {
       ...ItemFields
     }
@@ -39,31 +49,25 @@ export const ITEM_QUERY = gql`
   ${ItemFields}
 `;
 
-// export const ALL_ITEMS_QUERY = gql`
-//   query items($filter: ID) {
-//     # @TODO: Query items (optionally by tag id) and return the ItemFields fragment.
-//     items(filter: $filter) {
-//       ...ItemFields
-//     }
-//   }
-//   ${ItemFields}
-// `;
-
-// export const ALL_ITEMS_QUERY_AJ = gql`
-//   query item {
-//     # @TODO: Query items (optionally by tag id) and return the ItemFields fragment.
-//     ...ItemFields
-//   }
-//   ${ItemFields}
-// `;
-
-// export const ALL_USER_ITEMS_QUERY = gql`
-//   query user($id: ID!) {
-//     # @TODO: Query the bio, email, fullname, items, and borrowed for the user by id
-//     # Use the ItemFields fragment for the items and borrowed fields.
-//   }
-//   ${ItemFields}
-// `;
+export const ALL_USER_ITEMS_QUERY = gql`
+  query user($id: ID!) {
+    # @TODO: Query the bio, email, fullname, items, and borrowed for the user by id
+    # Use the ItemFields fragment for the items and borrowed fields.
+    user(id: $id) {
+      id
+      email
+      fullname
+      bio
+      items {
+        ...ItemFields
+      }
+      borrowed {
+        ...ItemFields
+      }
+    }
+  }
+  ${ItemFields}
+`;
 
 // export const ALL_TAGS_QUERY = gql`
 //   query {

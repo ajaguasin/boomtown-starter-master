@@ -57,6 +57,7 @@ module.exports = gql`
     user(id: ID!): User
     viewer: User
     items(filter: ID): [Item]
+    item(id: ID): Item
     tags: [Tag]
   }
 
