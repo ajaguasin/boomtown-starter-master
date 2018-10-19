@@ -2,17 +2,20 @@ import { withStyles } from '@material-ui/core/styles';
 import React from 'react';
 
 import styles from './styles';
+import ItemCardComponent from '../../components/ItemCardComponent';
+import { Grid } from '@material-ui/core';
 
 const Items = ({ classes, data }) => {
   return (
-    <div>
-      <p>
-        This is the items page located at <code>/items</code>.
-        {data.items.map(item => {
-          return item.title;
-        })}
-      </p>
-    </div>
+    <Grid className={classes.grid} container spacing={24}>
+      {data.items.map((itemData, index) => {
+        return (
+          <Grid item xs={4} key={index}>
+            <ItemCardComponent item={itemData} key={index} />
+          </Grid>
+        );
+      })}
+    </Grid>
   );
 };
 
