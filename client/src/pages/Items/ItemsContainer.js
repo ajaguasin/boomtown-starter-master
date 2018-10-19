@@ -11,7 +11,6 @@ class ItemsContainer extends Component {
           if (loading) return 'Loading';
           if (error) return `Error, ${error.message}`;
           if (data) {
-            console.log(data);
             return <Items data={data} />;
           }
         }}
