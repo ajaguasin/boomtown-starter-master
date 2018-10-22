@@ -10,7 +10,7 @@ const Items = ({ classes, data }) => {
     <Grid className={classes.grid} container spacing={24}>
       {data.items.map((itemData, index) => {
         return (
-          <Grid item xs={4} key={index}>
+          <Grid item xs={12} md={6} lg={4} key={index}>
             <ItemCardComponent item={itemData} key={index} />
           </Grid>
         );

@@ -1,8 +1,8 @@
 const styles = theme => ({
-  root: {
+  cardMedia: {
     height: '30vh'
   },
-  outlined: {
+  button: {
     marginLeft: '1rem',
     marginBottom: '1rem'
   }

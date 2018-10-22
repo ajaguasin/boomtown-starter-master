@@ -16,22 +16,24 @@ const ItemCardComponent = ({ classes, item }) => {
     <Card>
       <CardMedia
         component="img"
-        className={classes.root}
+        className={classes.cardMedia}
         src="https://source.unsplash.com/random/800x300"
       />
       <CardHeader
         avatar={<Avatar>R</Avatar>}
-        title="User"
-        subheader="Uploaded x days ago"
+        title={`${item.ownerid.fullname}`}
+        subheader={`Created on: ${item.createdon}`}
       />
       <CardContent>
-        <Typography>{item.title}</Typography>
+        <Typography>
+          <h1>{item.title}</h1>
+        </Typography>
         <Typography>
           {item.tags.map((tag, index) => `Tags: ${tag.title} `)}
         </Typography>
         <Typography>{item.description}</Typography>
       </CardContent>
-      <Button variant="outlined" className={classes.outlined}>
+      <Button variant="outlined" className={classes.button}>
         Borrow
       </Button>
     </Card>
