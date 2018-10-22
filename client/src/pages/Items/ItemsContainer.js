@@ -10,9 +10,7 @@ class ItemsContainer extends Component {
         {({ loading, error, data }) => {
           if (loading) return 'Loading'; //! Loading component
           if (error) return `Error, ${error.message}`;
-          if (data) {
-            return <Items data={data} />;
-          }
+          if (data) return <Items data={data} />;
         }}
       </Query>
     );

@@ -15,7 +15,7 @@ const ItemFields = gql`
       id
       title
     }
-    ownerid {
+    owner {
       id
       fullname
       email

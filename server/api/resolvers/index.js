@@ -81,7 +81,7 @@ module.exports = app => {
     },
 
     Item: {
-      async ownerid(parent, _, { pgResource }) {
+      async owner(parent, _, { pgResource }) {
         try {
           const user = await pgResource.getUserById(parent.ownerid);
           return user;

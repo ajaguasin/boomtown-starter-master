@@ -14,20 +14,19 @@ import styles from './styles';
 const ItemCardComponent = ({ classes, item }) => {
   return (
     <Card>
+      {console.log(item)}
       <CardMedia
         component="img"
         className={classes.cardMedia}
-        src="https://source.unsplash.com/random/800x300"
+        src={item ? 'https://source.unsplash.com/random/800x300' : item.imgURL}
       />
       <CardHeader
         avatar={<Avatar>R</Avatar>}
-        title={`${item.ownerid.fullname}`}
+        title={item ? `${item.owner.fullname}` : item.name}
         subheader={`Created on: ${item.createdon}`}
       />
       <CardContent>
-        <Typography>
-          <h1>{item.title}</h1>
-        </Typography>
+        <Typography>{item.title}</Typography>
         <Typography>
           {item.tags.map((tag, index) => `Tags: ${tag.title} `)}
         </Typography>
@@ -38,6 +37,19 @@ const ItemCardComponent = ({ classes, item }) => {
       </Button>
     </Card>
   );
+};
+
+ItemCardComponent.defaultProps = {
+  item: {
+    title: 'Default item',
+    description: 'Default description',
+    createdon: 'Default date',
+    imgURL: '',
+    owner: {
+      fullname: 'Default Name'
+    },
+    tags: [{ title: 'Default Tag' }]
+  }
 };
 
 export default withStyles(styles)(ItemCardComponent);
