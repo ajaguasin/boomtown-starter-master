@@ -24,10 +24,6 @@ const options = [
 const ITEM_HEIGHT = 48;
 
 class MenuComponent extends Component {
-  constructor() {
-    super();
-  }
-
   state = {
     anchorEl: null
   };

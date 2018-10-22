@@ -8,13 +8,9 @@ import styles from './styles';
 import SvgIcon from '@material-ui/core/SvgIcon';
 
 class NavComponent extends Component {
-  constructor() {
-    super();
-  }
-
   render() {
     return (
-      this.props.location.pathname == '/welcome' && ( //set to != after editing
+      this.props.location.pathname != '/welcome' && ( //set to != after editing
         <AppBar className={this.props.classes.root}>
           <IconButton aria-label="Delete">
             <SvgIcon>
