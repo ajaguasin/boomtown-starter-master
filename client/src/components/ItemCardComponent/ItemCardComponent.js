@@ -14,7 +14,6 @@ import styles from './styles';
 const ItemCardComponent = ({ classes, item }) => {
   return (
     <Card>
-      {console.log(item)}
       <CardMedia
         component="img"
         className={classes.cardMedia}
@@ -22,7 +21,7 @@ const ItemCardComponent = ({ classes, item }) => {
       />
       <CardHeader
         avatar={<Avatar>R</Avatar>}
-        title={item ? `${item.owner.fullname}` : item.name}
+        title={`${item.owner.fullname}`}
         subheader={`Created on: ${item.createdon}`}
       />
       <CardContent>

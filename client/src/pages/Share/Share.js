@@ -5,15 +5,15 @@ import styles from './styles';
 import { Grid } from '@material-ui/core';
 import ItemCardComponent from '../../components/ItemCardComponent';
 
-const Share = ({ classes }) => {
+const Share = ({ classes, data }) => {
   return (
-    <Grid container>
-      <Grid item lg={4}>
+    <Grid container className={classes.shareContainer} spacing={24}>
+      <Grid className={classes.gridItems} item xs={4}>
         <ItemCardComponent />
       </Grid>
 
-      <Grid item lg={4}>
-        <ShareItemForm />
+      <Grid className={classes.gridItems} item xs={4}>
+        <ShareItemForm className={classes.shareItemForm} data={data} />
       </Grid>
     </Grid>
   );
