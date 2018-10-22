@@ -5,12 +5,13 @@ import Items from '../pages/Items';
 import Home from '../pages/Home';
 import Share from '../pages/Share';
 import Profile from '../pages/Profile';
+import ItemsContainer from '../pages/Items';
 
 export default () => (
   <Fragment>
     <NavComponent />
     <Switch>
-      <Route exact path="/items" component={Items} />
+      <Route exact path="/items" component={ItemsContainer} />
       <Route exact path="/welcome" component={Home} />
       <Route exact path="/share" component={Share} />
       <Route exact path="/profile" component={Profile} />
