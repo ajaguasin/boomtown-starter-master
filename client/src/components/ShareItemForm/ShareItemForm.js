@@ -1,12 +1,21 @@
 import React, { Component } from 'react';
 import { Form, Field } from 'react-final-form';
-import { Button, MenuItem, TextField, withStyles } from '@material-ui/core';
+import {
+  Button,
+  TextField,
+  withStyles,
+  ListItemText,
+  Checkbox,
+  MenuItem
+} from '@material-ui/core';
 import styles from './styles';
 
 class ShareItemForm extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      checked: [0]
+    };
   }
 
   submitTheForm(e, form) {
@@ -24,7 +33,7 @@ class ShareItemForm extends Component {
     // return errors;
   }
   render() {
-    const { classes, data } = this.props;
+    const { classes, tags } = this.props;
     return (
       <Form
         validate={values => this.validate(values)}
@@ -77,13 +86,22 @@ class ShareItemForm extends Component {
               <Field
                 name="TagField"
                 render={({ input, meta }) => (
-                  <TextField select className={classes.textField}>
-                    {data.tags.map(option => (
-                      <MenuItem key={option.value} value={option.value}>
-                        {option.title}
+                  <TextField
+                    select
+                    className={classes.textField}
+                    label="Add some tags"
+                    value={tags.tags}
+                    SelectProps={{
+                      multiple: true
+                    }}
+                  >
+                    {console.log(tags.tags)}
+                    {tags.tags.map((tag, index) => (
+                      <MenuItem key={index} value={tag.title}>
+                        <Checkbox />
+                        {tag.title}
                       </MenuItem>
                     ))}
-                    Option 1
                   </TextField>
                 )}
               />

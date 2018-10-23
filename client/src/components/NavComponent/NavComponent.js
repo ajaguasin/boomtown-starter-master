@@ -6,17 +6,14 @@ import MenuComponent from '../MenuComponent';
 import React, { Component } from 'react';
 import styles from './styles';
 import SvgIcon from '@material-ui/core/SvgIcon';
+import BoomTownIcon from '../../images/boomtown.svg';
 
 class NavComponent extends Component {
   render() {
     return (
       this.props.location.pathname != '/welcome' && ( //set to != after editing
         <AppBar className={this.props.classes.root}>
-          <IconButton aria-label="Delete">
-            <SvgIcon>
-              <path d="M20 12l-1.41-1.41L13 16.17V4h-2v12.17l-5.58-5.59L4 12l8 8 8-8z" />
-            </SvgIcon>
-          </IconButton>
+          <IconButton aria-label="Delete">B</IconButton>
           <MenuComponent />
         </AppBar>
       )

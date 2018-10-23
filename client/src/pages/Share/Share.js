@@ -5,7 +5,7 @@ import styles from './styles';
 import { Grid } from '@material-ui/core';
 import ItemCardComponent from '../../components/ItemCardComponent';
 
-const Share = ({ classes, data }) => {
+const Share = ({ classes, tags }) => {
   return (
     <Grid container className={classes.shareContainer} spacing={24}>
       <Grid className={classes.gridItems} item xs={4}>
@@ -13,7 +13,7 @@ const Share = ({ classes, data }) => {
       </Grid>
 
       <Grid className={classes.gridItems} item xs={4}>
-        <ShareItemForm className={classes.shareItemForm} data={data} />
+        <ShareItemForm className={classes.shareItemForm} tags={tags} />
       </Grid>
     </Grid>
   );
