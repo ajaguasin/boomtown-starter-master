@@ -57,7 +57,6 @@ import client from './apollo';
  */
 
 // @TODO: Remove this import once you have your router working below
-import HomeContainer from './pages/Home/HomeContainer';
 // -------------------------------
 
 import './index.css';

@@ -3,15 +3,17 @@ const styles = theme => ({
     marginTop: '64px',
     display: 'flex',
     flexDirection: 'row',
-    alignItems: 'flex-start',
+    flexGrow: '1',
+    alignItems: 'center',
     justifyContent: 'center',
-    padding: '4rem'
+    padding: '160px',
+    paddingTop: '80px'
   },
 
   gridItems: {
     flexGrow: '0',
-    maxWidth: '50%'
-    // flexBasis: '50%'
+    maxWidth: '50%',
+    flexBasis: '50%'
   },
 
   shareItemForm: {

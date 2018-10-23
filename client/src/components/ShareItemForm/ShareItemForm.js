@@ -4,7 +4,6 @@ import {
   Button,
   TextField,
   withStyles,
-  ListItemText,
   Checkbox,
   MenuItem
 } from '@material-ui/core';
@@ -95,7 +94,6 @@ class ShareItemForm extends Component {
                       multiple: true
                     }}
                   >
-                    {console.log(tags.tags)}
                     {tags.tags.map((tag, index) => (
                       <MenuItem key={index} value={tag.title}>
                         <Checkbox />

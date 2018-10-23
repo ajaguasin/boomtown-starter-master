@@ -10,6 +10,7 @@ import {
 } from '@material-ui/core';
 import React from 'react';
 import styles from './styles';
+import PropTypes from 'prop-types';
 
 const ItemCardComponent = ({ classes, item }) => {
   return (
@@ -52,3 +53,8 @@ ItemCardComponent.defaultProps = {
 };
 
 export default withStyles(styles)(ItemCardComponent);
+
+ItemCardComponent.propTypes = {
+  item: PropTypes.object,
+  classes: PropTypes.object
+};

@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { Redirect, Route, Switch, Link } from 'react-router';
+import { Redirect, Route, Switch } from 'react-router';
 import NavComponent from '../components/NavComponent';
 import Items from '../pages/Items';
 import Home from '../pages/Home';

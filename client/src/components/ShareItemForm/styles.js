@@ -13,12 +13,12 @@ const styles = theme => ({
   },
 
   textField: {
-    marginBottom: '5rem'
+    marginBottom: '2rem'
   },
 
   button: {
     width: '100%',
-    marginBottom: '5rem'
+    marginBottom: '2rem'
   }
 });
 
