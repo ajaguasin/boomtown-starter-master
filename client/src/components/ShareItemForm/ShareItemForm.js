@@ -5,7 +5,11 @@ import {
   TextField,
   withStyles,
   Checkbox,
-  MenuItem
+  MenuItem,
+  Input,
+  InputLabel,
+  Select,
+  ListItemText
 } from '@material-ui/core';
 import styles from './styles';
 
@@ -48,6 +52,7 @@ class ShareItemForm extends Component {
                     variant="contained"
                     color="primary"
                     className={classes.button}
+                    {...input}
                   >
                     Select an image
                   </Button>
@@ -83,26 +88,53 @@ class ShareItemForm extends Component {
               />
 
               <Field
+                // component="select"
                 name="TagField"
-                render={({ input, meta }) => (
-                  <TextField
-                    select
+              >
+                {/* {console.log(tags.tags)} */}
+                {({ input, meta }) => (
+                  <React.Fragment>
+                    <InputLabel
+                      htmlFor="select-multiple-checkbox"
+                      className={classes.label}
+                    >
+                      Tag
+                    </InputLabel>
+                    <Select
+                      multiple
+                      className={classes.textField}
+                      // label="Add some tags"
+                      input={<Input id="select-multiple-checkbox" />}
+                      value={[]}
+                      label="Add some tags"
+                    >
+                      {tags.tags.map((tag, index) => (
+                        <MenuItem key={index} value={tag.title}>
+                          <Checkbox />
+                          <ListItemText primary={tag.title} />
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </React.Fragment>
+                )}
+                {/* render={({ input, meta }) => (
+                  <Select
+                    multiple
                     className={classes.textField}
-                    label="Add some tags"
+                    // label="Add some tags"
+                    // {...input}
+                    // input={<Input id="select-multiple-checkbox" />}
                     value={tags.tags}
-                    SelectProps={{
-                      multiple: true
-                    }}
                   >
                     {tags.tags.map((tag, index) => (
                       <MenuItem key={index} value={tag.title}>
                         <Checkbox />
-                        {tag.title}
+                        <ListItemText primary={tag.title} />
                       </MenuItem>
                     ))}
-                  </TextField>
-                )}
-              />
+                  </Select>
+                )} */}
+              </Field>
 
               <Button
                 id="submit"

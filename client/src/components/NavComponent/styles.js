@@ -8,6 +8,10 @@ const styles = theme => ({
     minHeight: '64px',
     paddingLeft: '24px',
     paddingRight: '24px'
+  },
+
+  img: {
+    width: '100%'
   }
 });
 

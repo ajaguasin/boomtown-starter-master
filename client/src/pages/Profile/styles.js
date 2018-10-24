@@ -22,8 +22,11 @@ const styles = theme => ({
   borrowedItem: {
     height: '100%',
     padding: '12px',
+    display: 'flex'
+  },
 
-    flex: '1 0 auto'
+  borrowedItemCard: {
+    alignItems: 'stretch'
   }
 });
 

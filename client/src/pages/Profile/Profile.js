@@ -32,7 +32,11 @@ const Profile = ({ classes, data }) => {
           {data.user.items.map((item, index) => {
             return (
               <Grid item xs={4} className={classes.borrowedItem}>
-                <ItemCardComponent key={index} item={item} />
+                <ItemCardComponent
+                  key={index}
+                  item={item}
+                  className={classes.borrowedItemCard}
+                />
               </Grid>
             );
           })}

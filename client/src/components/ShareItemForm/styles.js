@@ -19,6 +19,13 @@ const styles = theme => ({
   button: {
     width: '100%',
     marginBottom: '2rem'
+  },
+  label: {
+    color: 'rgba(0, 0, 0, 0.54)',
+    padding: '0',
+    fontSize: '1rem',
+    fontFamily: 'Helvetica',
+    lineHeight: '1'
   }
 });
 

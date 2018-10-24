@@ -3,22 +3,13 @@ import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import { withStyles } from '@material-ui/core';
+import styles from './styles';
 
 const options = [
-  'None',
-  'Atria',
-  'Callisto',
-  'Dione',
-  'Ganymede',
-  'Hangouts Call',
-  'Luna',
-  'Oberon',
-  'Phobos',
-  'Pyxis',
-  'Sedna',
-  'Titania',
-  'Triton',
-  'Umbriel'
+  { title: 'Your Profile', path: '/profile' },
+  { title: 'Sign Out', path: '/welcome' }
 ];
 
 const ITEM_HEIGHT = 48;
@@ -68,7 +59,9 @@ class MenuComponent extends Component {
               selected={option === 'Pyxis'}
               onClick={this.handleClose}
             >
-              {option}
+              <Link to={option.path} className={this.props.classes.menuItem}>
+                {option.title}{' '}
+              </Link>
             </MenuItem>
           ))}
         </Menu>
@@ -77,4 +70,4 @@ class MenuComponent extends Component {
   }
 }
 
-export default MenuComponent;
+export default withStyles(styles)(MenuComponent);
