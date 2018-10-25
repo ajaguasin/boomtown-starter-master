@@ -18,7 +18,11 @@ const ItemCardComponent = ({ classes, item }) => {
       <CardMedia
         component="img"
         className={classes.cardMedia}
-        src={item ? 'https://source.unsplash.com/random/800x300' : item.imgURL}
+        src={
+          item.imageurl
+            ? item.imageurl
+            : 'https://source.unsplash.com/random/800x300'
+        }
       />
       <CardHeader
         avatar={<Avatar>R</Avatar>}
@@ -39,18 +43,18 @@ const ItemCardComponent = ({ classes, item }) => {
   );
 };
 
-ItemCardComponent.defaultProps = {
-  item: {
-    title: 'Default item',
-    description: 'Default description',
-    createdon: 'Default date',
-    imgURL: '',
-    owner: {
-      fullname: 'Default Name'
-    },
-    tags: [{ title: 'Default Tag' }]
-  }
-};
+// ItemCardComponent.defaultProps = {
+//   item: {
+//     title: 'Default item',
+//     description: 'Default description',
+//     createdon: 'Default date',
+//     imgURL: '',
+//     owner: {
+//       fullname: 'Default Name'
+//     },
+//     tags: [{ title: 'Default Tag' }]
+//   }
+// };
 
 export default withStyles(styles)(ItemCardComponent);
 
