@@ -63,5 +63,8 @@ module.exports = gql`
 
   type Mutation {
     addItem(item: NewItemInput!, image: String): Item
+    signup(fullname: String, email: String, bio: String, password: String): User
+    login(email: String, password: String): User
+    logout: Boolean
   }
 `;

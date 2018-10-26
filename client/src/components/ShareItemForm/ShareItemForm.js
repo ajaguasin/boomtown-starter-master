@@ -65,10 +65,7 @@ class ShareItemForm extends Component {
   resetFileInput() {
     this.props.resetNewItemImage();
     this.setState({ fileSelected: '' });
-
-    // this.setState({
-    //   fileSelected: this.fileInput.current.files[0]
-    // });
+    this.fileInput.current.value = '';
   }
 
   dispatchUpdate(values, tags, updateNewItem) {
@@ -90,6 +87,7 @@ class ShareItemForm extends Component {
   }
 
   handleSelectFile(event) {
+    console.log(this.fileInput.current);
     this.setState({
       fileSelected: this.fileInput.current.files[0]
     });

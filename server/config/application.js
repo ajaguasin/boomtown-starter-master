@@ -10,6 +10,8 @@ module.exports = app => {
   app.set('PG_HOST', process.env.PG_HOST || 'localhost');
   app.set('PG_PASSWORD', process.env.PG_PASSWORD || 'boomtown');
   app.set('PG_DB', process.env.PG_DB || 'boomtown');
+  app.set('JWT_SECRET', process.env.JWT_SECRET || 'pancake');
+  app.set('JWT_COOKIE_NAME', process.env.JWT_SECRET || 'waffle');
 
   /**
    *  @TODO: Configuration Variables

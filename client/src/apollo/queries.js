@@ -51,8 +51,6 @@ export const ALL_ITEMS_QUERY = gql`
 
 export const ALL_USER_ITEMS_QUERY = gql`
   query user($id: ID!) {
-    # @TODO: Query the bio, email, fullname, items, and borrowed for the user by id
-    # Use the ItemFields fragment for the items and borrowed fields.
     user(id: $id) {
       id
       email
@@ -71,7 +69,6 @@ export const ALL_USER_ITEMS_QUERY = gql`
 
 export const ALL_TAGS_QUERY = gql`
   query tags {
-    # @TODO: Query the id and title fields for tags.
     tags {
       title
       id
@@ -86,9 +83,27 @@ export const ALL_TAGS_QUERY = gql`
 //   }
 // `;
 
-// /**
-//  * Auth-related queries and mutations.
-//  */
+// export const ADD_USER_MUTATION = gql`
+//   mutation addUser(
+//     $fullname: String!
+//     $email: String!
+//     $bio: String
+//     $password: String!
+//   ) {
+//     addUser(
+//       email: $email
+//       fullname: $fullname
+//       bio: $bio
+//       password: $password
+//     ) {
+//       User
+//     }
+//   }
+// `;
+
+//
+//   Auth-related queries and mutations.
+//
 
 // export const VIEWER_QUERY = gql`
 //   query {

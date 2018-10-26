@@ -13,7 +13,7 @@ class NavComponent extends Component {
       this.props.location.pathname !== '/welcome' && (
         <AppBar className={classes.root}>
           <IconButton aria-label="Delete" to="/items" component={Link}>
-            <img className={classes.img} src={BoomtownLogo} />
+            <img className={classes.img} src={BoomtownLogo} alt="logo" />
           </IconButton>
           <div>
             <Button

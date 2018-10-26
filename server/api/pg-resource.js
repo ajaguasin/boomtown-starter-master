@@ -14,10 +14,11 @@ function tagsQueryString(tags, itemid, result) {
 
 module.exports = postgres => {
   return {
-    async createUser({ fullname, email, password }) {
+    async createUser({ email, fullname, bio, password }) {
       const newUserInsert = {
-        text: '', // @TODO: Authentication - Server
-        values: [fullname, email, password]
+        text:
+          'INSERT INTO "public"."users"("email", "fullname", "bio", "password") VALUES($1, $2, $3, $4) RETURNING "id", "email", "fullname", "bio", "password";',
+        values: [email, fullname, bio, password]
       };
       try {
         const user = await postgres.query(newUserInsert);
@@ -35,7 +36,7 @@ module.exports = postgres => {
     },
     async getUserAndPasswordForVerification(email) {
       const findUserQuery = {
-        text: '', // @TODO: Authentication - Server
+        text: 'SELECT id, password, email FROM users WHERE users.email = $1',
         values: [email]
       };
       try {
