@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Query } from 'react-apollo';
-import Items from './Items';
+
 import { ALL_ITEMS_QUERY } from '../../apollo/queries';
+import Items from './Items';
+import { Query } from 'react-apollo';
 class ItemsContainer extends Component {
   render() {
     return (

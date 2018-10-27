@@ -8,9 +8,10 @@ import {
   Typography,
   withStyles
 } from '@material-ui/core';
+
+import PropTypes from 'prop-types';
 import React from 'react';
 import styles from './styles';
-import PropTypes from 'prop-types';
 
 const ItemCardComponent = ({ classes, item }) => {
   return (

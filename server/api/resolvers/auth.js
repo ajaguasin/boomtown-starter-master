@@ -18,7 +18,9 @@ function setCookie({ tokenName, token, res }) {
    */
   // Refactor this method with the correct configuration values.
   res.cookie(tokenName, token, {
-    maxAge: 60 * 60 * 24
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    maxAge: 1000 * 60 * 60 * 2
   });
   // -------------------------------
 }
@@ -33,7 +35,8 @@ function generateToken(user, secret) {
       fullname: fullname,
       bio: bio
     },
-    secret
+    secret,
+    { expiresIn: '2h' }
   );
   return token;
   // -------------------------------
