@@ -36,7 +36,8 @@ module.exports = postgres => {
     },
     async getUserAndPasswordForVerification(email) {
       const findUserQuery = {
-        text: 'SELECT id, password, email FROM users WHERE users.email = $1',
+        text:
+          'SELECT id, password, fullname ,email FROM users WHERE users.email = $1',
         values: [email]
       };
       try {
@@ -121,97 +122,42 @@ module.exports = postgres => {
       } catch (error) {}
     },
     async saveNewItem({ item, image, user }) {
-      /**
-       *  @TODO: Adding a New Item
-       *
-       *  Adding a new Item to Posgtres is the most advanced query.
-       *  It requires 3 separate INSERT statements.
-       *
-       *  All of the INSERT statements must:
-       *  1) Proceed in a specific order.
-       *  2) Succeed for the new Item to be considered added
-       *  3) If any of the INSERT queries fail, any successful INSERT
-       *     queries should be 'rolled back' to avoid 'orphan' data in the database.
-       *
-       *  To achieve #3 we'll ue something called a Postgres Transaction!
-       *  The code for the transaction has been provided for you, along with
-       *  helpful comments to help you get started.
-       *
-       *  Read the method and the comments carefully before you begin.
-       */
-
       return new Promise((resolve, reject) => {
-        /**
-         * Begin transaction by opening a long-lived connection
-         * to a client from the client pool.
-         */
         postgres.connect((err, client, done) => {
           try {
-            // Begin postgres transaction
-            client.query('BEGIN', err => {
-              // Convert image (file stream) to Base64
-              const imageStream = image.stream.pipe(strs('base64'));
+            client.query('BEGIN', async err => {
+              const { title, description, tags } = item;
 
-              let base64Str = '';
-              imageStream.on('data', data => {
-                base64Str += data;
-              });
+              const itemQuery = {
+                text:
+                  'INSERT INTO items(title, description, ownerid) VALUES($1, $2, $3) RETURNING *',
+                values: [title, description, user.id]
+              };
 
-              imageStream.on('end', async () => {
-                // Image has been converted, begin saving things
-                const { title, description, tags } = item;
+              const newItem = await client.query(itemQuery);
+              console.log(newItem);
 
-                // Generate new Item query
-                // @TODO
-                // -------------------------------
+              const tagIds = tags.map(tag => parseInt(tag));
 
-                // Insert new Item
-                // @TODO
-                // -------------------------------
+              const tagItemPair = tagsQueryString(
+                tagIds,
+                newItem.rows[0].id,
+                ''
+              );
 
-                const imageUploadQuery = {
-                  text:
-                    'INSERT INTO uploads (itemid, filename, mimetype, encoding, data) VALUES ($1, $2, $3, $4, $5) RETURNING *',
-                  values: [
-                    // itemid,
-                    image.filename,
-                    image.mimetype,
-                    'base64',
-                    base64Str
-                  ]
-                };
+              const tagRelationships = {
+                text: `INSERT INTO itemtags (tagid, itemid) VALUES ${tagItemPair}`,
+                values: [...tags]
+              };
 
-                // Upload image
-                const uploadedImage = await client.query(imageUploadQuery);
-                const imageid = uploadedImage.rows[0].id;
+              await client.query(tagRelationships);
 
-                // Generate image relation query
-                // @TODO
-                // -------------------------------
-
-                // Insert image
-                // @TODO
-                // -------------------------------
-
-                // Generate tag relationships query (use the'tagsQueryString' helper function provided)
-                // @TODO
-                // -------------------------------
-
-                // Insert tags
-                // @TODO
-                // -------------------------------
-
-                // Commit the entire transaction!
-                client.query('COMMIT', err => {
-                  if (err) {
-                    throw err;
-                  }
-                  // release the client back to the pool
-                  done();
-                  // Uncomment this resolve statement when you're ready!
-                  // resolve(newItem.rows[0])
-                  // -------------------------------
-                });
+              client.query('COMMIT', err => {
+                if (err) {
+                  throw err;
+                }
+                done();
+                resolve(newItem.rows[0]);
               });
             });
           } catch (e) {

@@ -5,6 +5,9 @@ const styles = theme => ({
   button: {
     marginLeft: '1rem',
     marginBottom: '1rem'
+  },
+  avatar: {
+    borderRadius: '50%'
   }
 });
 

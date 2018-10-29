@@ -126,12 +126,11 @@ module.exports = app => {
          *  destructuring should look like.
          */
 
-        image = await image;
         const user = await jwt.decode(context.token, app.get('JWT_SECRET'));
         const newItem = await context.pgResource.saveNewItem({
           item: args.item,
-          image: args.image,
-          user
+          user: user,
+          tags: args.item.tags
         });
         return newItem;
       }

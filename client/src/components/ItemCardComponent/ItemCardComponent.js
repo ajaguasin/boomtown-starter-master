@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Button,
   Card,
   CardContent,
@@ -9,6 +8,7 @@ import {
   withStyles
 } from '@material-ui/core';
 
+import Gravatar from 'react-gravatar';
 import PropTypes from 'prop-types';
 import React from 'react';
 import { ViewerContext } from '../../context/ViewerProvider';
@@ -20,6 +20,7 @@ const ItemCardComponent = ({ classes, item }) => {
     <ViewerContext.Consumer>
       {({ viewer, loading }) => (
         <Card>
+          {console.log(viewer)}
           <CardMedia
             component="img"
             className={classes.cardMedia}
@@ -31,8 +32,13 @@ const ItemCardComponent = ({ classes, item }) => {
           />
 
           <CardHeader
-            avatar={<Avatar>R</Avatar>}
-            title={`${item.owner.fullname} ${viewer.id}`}
+            avatar={
+              <Gravatar
+                className={classes.avatar}
+                email={item.owner.email || viewer.email}
+              />
+            }
+            title={item.owner.fullname ? item.owner.fullname : viewer.fullname}
             subheader={moment(item.createdon).fromNow()}
           />
 

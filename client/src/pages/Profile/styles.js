@@ -19,7 +19,6 @@ const styles = theme => ({
   },
 
   borrowedItem: {
-    height: '100%',
     padding: '12px',
     display: 'flex'
   },

@@ -1,10 +1,11 @@
-import { withRouter, Link } from 'react-router-dom';
 import { AppBar, Button, IconButton, withStyles } from '@material-ui/core';
-import AddIcon from '@material-ui/icons/AddCircle';
-import MenuComponent from '../MenuComponent';
+import { Link, withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
-import styles from './styles';
+
+import AddIcon from '@material-ui/icons/AddCircle';
 import BoomtownLogo from '../../images/boomtown.svg';
+import MenuComponent from '../MenuComponent';
+import styles from './styles';
 
 class NavComponent extends Component {
   render() {
@@ -18,7 +19,7 @@ class NavComponent extends Component {
           <div>
             <Button
               variant="flat"
-              // color="primary"
+              href="/share"
               aria-label="Delete"
               className={classes.button}
             >

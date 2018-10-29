@@ -1,9 +1,8 @@
-import { withStyles } from '@material-ui/core/styles';
-import React from 'react';
-
-import styles from './styles';
-import ItemCardComponent from '../../components/ItemCardComponent';
 import { Grid } from '@material-ui/core';
+import ItemCardComponent from '../../components/ItemCardComponent';
+import React from 'react';
+import styles from './styles';
+import { withStyles } from '@material-ui/core/styles';
 
 const Items = ({ classes, data }) => {
   return (

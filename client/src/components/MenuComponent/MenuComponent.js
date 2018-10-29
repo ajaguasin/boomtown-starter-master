@@ -1,4 +1,6 @@
+import { LOGOUT_MUTATION, VIEWER_QUERY } from '../../apollo/queries';
 import React, { Component } from 'react';
+import { compose, graphql } from 'react-apollo';
 
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
@@ -7,11 +9,6 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import styles from './styles';
 import { withStyles } from '@material-ui/core';
-
-const options = [
-  { title: 'Your Profile', path: '/profile' },
-  { title: 'Sign Out', path: '/welcome' }
-];
 
 const ITEM_HEIGHT = 48;
 
@@ -31,6 +28,11 @@ class MenuComponent extends Component {
   render() {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
+    const logoutMutation = this.props.logoutMutation;
+    const options = [
+      { title: 'Your Profile', path: '/profile' },
+      { title: 'Sign Out', path: '/welcome', onClick: logoutMutation }
+    ];
     return (
       <React.Fragment>
         <IconButton
@@ -54,17 +56,41 @@ class MenuComponent extends Component {
             }
           }}
         >
-          {options.map((option, index) => (
-            <MenuItem key={index} onClick={this.handleClose}>
-              <Link to={option.path} className={this.props.classes.menuItem}>
-                {option.title}
-              </Link>
-            </MenuItem>
-          ))}
+          <MenuItem onClick={this.handleClose}>
+            <Link to={'/profile'} className={this.props.classes.menuItem}>
+              Your Profile
+            </Link>
+          </MenuItem>
+          <MenuItem onClick={this.handleClose}>
+            <Link
+              to={'/welcome'}
+              className={this.props.classes.menuItem}
+              onClick={() => {
+                logoutMutation();
+              }}
+            >
+              SignOut
+            </Link>
+          </MenuItem>
         </Menu>
       </React.Fragment>
     );
   }
 }
 
-export default withStyles(styles)(MenuComponent);
+const refetchQueries = [
+  {
+    query: VIEWER_QUERY
+  }
+];
+
+export default compose(
+  graphql(LOGOUT_MUTATION, {
+    options: {
+      refetchQueries
+    },
+    name: 'logoutMutation'
+  }),
+
+  withStyles(styles)
+)(MenuComponent);

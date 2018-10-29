@@ -72,11 +72,13 @@ module.exports = app => {
 
     async login(parent, args, context) {
       try {
+        console.log(args);
+
         const user = await context.pgResource.getUserAndPasswordForVerification(
-          args.email
+          args.input.email
         );
 
-        const valid = bcrypt.compareSync(args.password, user.password);
+        const valid = bcrypt.compareSync(args.input.password, user.password);
         // -------------------------------
         if (!valid || !user) throw 'User was not found.';
 
@@ -85,9 +87,11 @@ module.exports = app => {
           token: generateToken(user, app.get('JWT_SECRET')),
           res: context.req.res
         });
-
+        console.log('user: ', user);
+        console.log('fullname: ', user.fullname);
         return {
-          id: user.id
+          id: user.id,
+          fullname: user.fullname
         };
       } catch (e) {
         throw new AuthenticationError(e);

@@ -58,8 +58,9 @@ class AccountForm extends Component {
         validate={validate.bind(this)}
         render={({ handleSubmit, pristine, invalid }) => (
           <form
-            onSubmit={() => {
-              handleSubmit;
+            onSubmit={(e, form) => {
+              e.preventDefault();
+              handleSubmit(form);
             }}
             className={classes.accountForm}
           >
@@ -71,11 +72,10 @@ class AccountForm extends Component {
                     <Input
                       id="fullname"
                       type="text"
-                      {...input}
                       inputProps={{
                         autoComplete: 'off'
                       }}
-                      value={''}
+                      {...input}
                     />
                   )}
                 </Field>
@@ -137,7 +137,7 @@ class AccountForm extends Component {
                 <Typography>
                   <button
                     className={classes.formToggle}
-                    type="button"
+                    type="submit"
                     onClick={() => {
                       // @TODO: Reset the form on submit
                       this.setState({

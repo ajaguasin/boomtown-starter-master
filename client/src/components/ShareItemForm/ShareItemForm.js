@@ -1,23 +1,26 @@
-import React, { Component } from 'react';
-import { Form, Field, FormSpy } from 'react-final-form';
 import {
   Button,
-  TextField,
-  withStyles,
   Checkbox,
-  MenuItem,
   Input,
   InputLabel,
+  ListItemText,
+  MenuItem,
   Select,
-  ListItemText
+  TextField,
+  withStyles
 } from '@material-ui/core';
-import styles from './styles';
-import { connect } from 'react-redux';
+import { Field, Form, FormSpy } from 'react-final-form';
+import React, { Component } from 'react';
+import { compose, graphql } from 'react-apollo';
 import {
-  updateNewItem,
   resetNewItem,
-  resetNewItemImage
+  resetNewItemImage,
+  updateNewItem
 } from '../../redux/modules/ShareItemPreview';
+
+import { ADD_ITEM_MUTATION } from '../../apollo/queries';
+import { connect } from 'react-redux';
+import styles from './styles';
 
 class ShareItemForm extends Component {
   constructor(props) {
@@ -93,23 +96,22 @@ class ShareItemForm extends Component {
     });
   }
 
-  // submitTheForm(e, form) {
-  //   console.log(form);
-  //   !form.invalid && form.reset();
-  // }
-
   render() {
     const { classes, tags, updateNewItem } = this.props;
     return (
       <Form
-        // validate={
-        // values => this.validate(values)
-        // }
-        onSubmit={(e, form) => this.submitTheForm(e, form)}
+        onSubmit={values => {
+          const item = {
+            variables: {
+              NewItemInput: { ...values, tags: this.state.selectedTags }
+            }
+          };
+          console.log(item);
+
+          this.props.addItemMutation(item);
+        }}
         render={({ handleSubmit, invalid, pristine }) => (
-          <form
-          // onSubmit={e => handleSubmit(e)}
-          >
+          <form onSubmit={handleSubmit}>
             <FormSpy
               subscription={{ values: true }}
               component={({ values }) => {
@@ -198,7 +200,6 @@ class ShareItemForm extends Component {
                       renderValue={selectedTags => {
                         return this.generateTagsText(tags.tags, selectedTags);
                       }}
-                      // label="Add some tags"
                       input={<Input id="select-multiple-checkbox" />}
                       value={this.state.selectedTags}
                       onChange={event => this.handleSelectTag(event)}
@@ -235,6 +236,12 @@ class ShareItemForm extends Component {
   }
 }
 
+const refetchQueries = [
+  {
+    query: ADD_ITEM_MUTATION
+  }
+];
+
 const mapDispatchToProps = dispatch => ({
   updateNewItem(item) {
     dispatch(updateNewItem(item));
@@ -250,4 +257,12 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps
-)(withStyles(styles)(ShareItemForm));
+)(
+  compose(
+    graphql(ADD_ITEM_MUTATION, {
+      options: { refetchQueries },
+      name: 'addItemMutation'
+    }),
+    withStyles(styles)
+  )(ShareItemForm)
+);

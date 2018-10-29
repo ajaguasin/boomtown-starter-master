@@ -76,12 +76,14 @@ export const ALL_TAGS_QUERY = gql`
   }
 `;
 
-// export const ADD_ITEM_MUTATION = gql`
-//   mutation addItem($item: NewItemInput!, $image: Upload!) {
-//     # @TODO: Pass the item and image into the addItem mutation as arguments
-//     # and return the new item id when the mutation is complete.
-//   }
-// `;
+export const ADD_ITEM_MUTATION = gql`
+  mutation addItem($NewItemInput: NewItemInput!) {
+    addItem(item: $NewItemInput) {
+      title
+      description
+    }
+  }
+`;
 
 // export const ADD_USER_MUTATION = gql`
 //   mutation addUser(
@@ -110,14 +112,16 @@ export const VIEWER_QUERY = gql`
     # @TODO: Query the id, email, fullname, and bio fields for the viewer.
     viewer {
       id
+      fullname
+      email
     }
   }
 `;
-// export const LOGOUT_MUTATION = gql`
-//   mutation {
-//     # @TODO: Run the logout mutation.
-//   }
-// `;
+export const LOGOUT_MUTATION = gql`
+  mutation {
+    logout
+  }
+`;
 
 export const SIGNUP_MUTATION = gql`
   mutation signup($user: SignupInput!) {
@@ -131,6 +135,7 @@ export const LOGIN_MUTATION = gql`
   mutation login($user: LoginInput!) {
     login(user: $user) {
       id
+      fullname
     }
   }
 `;
