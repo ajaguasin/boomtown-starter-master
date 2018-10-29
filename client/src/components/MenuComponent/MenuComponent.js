@@ -7,6 +7,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
 import styles from './styles';
 import { withStyles } from '@material-ui/core';
+
 const options = [
   { title: 'Your Profile', path: '/profile' },
   { title: 'Sign Out', path: '/welcome' }
@@ -53,14 +54,10 @@ class MenuComponent extends Component {
             }
           }}
         >
-          {options.map(option => (
-            <MenuItem
-              key={option}
-              selected={option === 'Pyxis'}
-              onClick={this.handleClose}
-            >
+          {options.map((option, index) => (
+            <MenuItem key={index} onClick={this.handleClose}>
               <Link to={option.path} className={this.props.classes.menuItem}>
-                {option.title}{' '}
+                {option.title}
               </Link>
             </MenuItem>
           ))}

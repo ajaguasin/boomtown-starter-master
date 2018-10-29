@@ -48,6 +48,7 @@ class AccountForm extends Component {
       <Form
         onSubmit={(e, form) => {
           console.log(form);
+          console.log(e);
 
           const user = { variables: { user: form } };
           this.state.formToggle
@@ -58,7 +59,7 @@ class AccountForm extends Component {
         render={({ handleSubmit, pristine, invalid }) => (
           <form
             onSubmit={() => {
-              console.log('Submitted');
+              handleSubmit;
             }}
             className={classes.accountForm}
           >
@@ -70,6 +71,7 @@ class AccountForm extends Component {
                     <Input
                       id="fullname"
                       type="text"
+                      {...input}
                       inputProps={{
                         autoComplete: 'off'
                       }}
@@ -103,6 +105,7 @@ class AccountForm extends Component {
                   <Input
                     id="password"
                     type="password"
+                    {...input}
                     inputProps={{
                       autoComplete: 'off'
                     }}

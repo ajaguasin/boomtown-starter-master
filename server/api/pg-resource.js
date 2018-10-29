@@ -65,7 +65,7 @@ module.exports = postgres => {
     async getItems(idToOmit) {
       try {
         const items = await postgres.query({
-          text: `SELECT * FROM items WHERE items.ownerid <> $1 `, // AND items.borrowerid IS NULL AND $1 IS NOT NULL
+          text: `SELECT * FROM items WHERE items.ownerid <> $1 AND items.borrowerid IS NULL`,
           values: idToOmit ? [idToOmit] : []
         });
         return items.rows;

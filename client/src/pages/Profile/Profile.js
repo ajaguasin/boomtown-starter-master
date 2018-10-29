@@ -1,8 +1,9 @@
-import { Grid, Card, CardContent, Typography } from '@material-ui/core';
-import { withStyles } from '@material-ui/core/styles';
+import { Card, CardContent, Grid, Typography } from '@material-ui/core';
+
+import ItemCardComponent from '../../components/ItemCardComponent';
 import React from 'react';
 import styles from './styles';
-import ItemCardComponent from '../../components/ItemCardComponent';
+import { withStyles } from '@material-ui/core/styles';
 
 const Profile = ({ classes, data }) => {
   return (
@@ -11,27 +12,34 @@ const Profile = ({ classes, data }) => {
         <Grid item xs={12} className={classes.profileCard}>
           <Card>
             <CardContent>
-              <Typography variant="h1" component="h1">
+              <Typography variant="display1" component="h1">
                 {data.user.fullname}
               </Typography>
-              <Typography variant="h2" component="h2">
+              <Typography variant="body1" component="h2">
                 {`${data.user.items.length} Items shared ${
                   data.user.borrowed.length
                 } Items borrowed`}
               </Typography>
-              <Typography variant="h3" component="h3">
+              <Typography variant="body1" component="h3">
                 {data.user.bio}
               </Typography>
             </CardContent>
           </Card>
         </Grid>
-        <Typography variant="h1" component="h1" color="primary">
+        <Typography variant="display1" component="h1" color="primary">
           Shared Items
         </Typography>
         <Grid item xs={12} className={classes.borrowedItems}>
           {data.user.items.map((item, index) => {
             return (
-              <Grid item xs={4} className={classes.borrowedItem}>
+              <Grid
+                item
+                xs={12}
+                md={6}
+                lg={4}
+                className={classes.borrowedItem}
+                key={index}
+              >
                 <ItemCardComponent
                   key={index}
                   item={item}

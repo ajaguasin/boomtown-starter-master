@@ -13,7 +13,6 @@ const styles = theme => ({
   },
 
   borrowedItems: {
-    width: 'calc(100% + 24px)',
     display: 'flex',
     flexWrap: 'wrap',
     margin: '-12px'
