@@ -106,7 +106,6 @@ class ShareItemForm extends Component {
               NewItemInput: { ...values, tags: this.state.selectedTags }
             }
           };
-          console.log(item);
 
           this.props.addItemMutation(item);
         }}

@@ -20,7 +20,6 @@ const ItemCardComponent = ({ classes, item }) => {
     <ViewerContext.Consumer>
       {({ viewer, loading }) => (
         <Card>
-          {console.log(viewer)}
           <CardMedia
             component="img"
             className={classes.cardMedia}

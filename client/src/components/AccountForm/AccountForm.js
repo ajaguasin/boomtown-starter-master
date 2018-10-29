@@ -46,24 +46,17 @@ class AccountForm extends Component {
 
     return (
       <Form
-        onSubmit={(e, form) => {
+        onSubmit={form => {
           console.log(form);
-          console.log(e);
 
           const user = { variables: { user: form } };
+          console.log(form);
           this.state.formToggle
             ? loginMutation(user).catch(error => this.setState({ error }))
             : signupMutation(user).catch(error => this.setState({ error }));
         }}
-        validate={validate.bind(this)}
         render={({ handleSubmit, pristine, invalid }) => (
-          <form
-            onSubmit={(e, form) => {
-              e.preventDefault();
-              handleSubmit(form);
-            }}
-            className={classes.accountForm}
-          >
+          <form onSubmit={handleSubmit} className={classes.accountForm}>
             {!this.state.formToggle && (
               <FormControl fullWidth className={classes.formControl}>
                 <InputLabel htmlFor="fullname">Username</InputLabel>
@@ -137,7 +130,7 @@ class AccountForm extends Component {
                 <Typography>
                   <button
                     className={classes.formToggle}
-                    type="submit"
+                    type="button"
                     onClick={() => {
                       // @TODO: Reset the form on submit
                       this.setState({
