@@ -6,7 +6,6 @@ import {
 } from '../../apollo/queries';
 import React, { Component } from 'react';
 import { compose, graphql } from 'react-apollo';
-
 import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import Grid from '@material-ui/core/Grid';
@@ -23,44 +22,32 @@ class AccountForm extends Component {
 
     this.state = {
       formToggle: true,
-      usernameInput: '',
-
-      emailInput: '',
-      passwordInput: ''
+      usernameInput: ''
     };
   }
 
-  handleEmailInput = event => {
-    this.setState({
-      emailInput: event.target.value
-    });
-  };
-  handlePasswordInput = event => {
-    this.setState({
-      passwordInput: event.target.value
-    });
-  };
-
   render() {
     const { classes, loginMutation, signupMutation } = this.props;
-
     return (
       <Form
-        onSubmit={form => {
-          console.log(form);
+        onSubmit={values => {
+          console.log(values);
 
-          const user = { variables: { user: form } };
-          console.log(form);
+          const input = {
+            variables: { input: values }
+          };
+          console.log(input);
           this.state.formToggle
-            ? loginMutation(user).catch(error => this.setState({ error }))
-            : signupMutation(user).catch(error => this.setState({ error }));
+            ? loginMutation(input).catch(error => this.setState({ error }))
+            : signupMutation(input).catch(error => this.setState({ error }));
         }}
-        render={({ handleSubmit, pristine, invalid }) => (
+        render={({ handleSubmit, pristine, invalid, values }) => (
           <form onSubmit={handleSubmit} className={classes.accountForm}>
+            {console.log(values)}
             {!this.state.formToggle && (
               <FormControl fullWidth className={classes.formControl}>
                 <InputLabel htmlFor="fullname">Username</InputLabel>
-                <Field>
+                <Field name="fullname">
                   {({ input, meta }) => (
                     <Input
                       id="fullname"
@@ -76,7 +63,7 @@ class AccountForm extends Component {
             )}
             <FormControl fullWidth className={classes.formControl}>
               <InputLabel htmlFor="email">Email</InputLabel>
-              <Field>
+              <Field name="email">
                 {({ input, meta }) => (
                   <Input
                     id="email"
@@ -85,15 +72,13 @@ class AccountForm extends Component {
                     inputProps={{
                       autoComplete: 'off'
                     }}
-                    value={this.state.emailInput}
-                    onChange={event => this.handleEmailInput(event)}
                   />
                 )}
               </Field>
             </FormControl>
             <FormControl fullWidth className={classes.formControl}>
               <InputLabel htmlFor="password">Password</InputLabel>
-              <Field>
+              <Field name="password">
                 {({ input, meta }) => (
                   <Input
                     id="password"
@@ -102,8 +87,6 @@ class AccountForm extends Component {
                     inputProps={{
                       autoComplete: 'off'
                     }}
-                    value={this.state.passwordInput}
-                    onChange={event => this.handlePasswordInput(event)}
                   />
                 )}
               </Field>

@@ -21,7 +21,7 @@ export default () => (
               <Route exact path="/profile" component={Profile} />
               <Route exact path="/profile/:id" component={Profile} />
 
-              {/* <Redirect from="*" to="/items" /> */}
+              <Redirect from="*" to="/items" />
 
               {/**
                * @TODO: Define routes here for: /items, /profile, /profile/:userid, and /share

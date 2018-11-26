@@ -64,7 +64,16 @@ class ShareItemForm extends Component {
         .map(t => ({ title: t.title, id: t.id }))
     );
   }
-
+  reset(form) {
+    form.reset();
+    this.setState({
+      fileSelected: false,
+      done: false,
+      selectedTags: []
+    });
+    this.props.resetNewItem();
+    this.resetFileInput();
+  }
   resetFileInput() {
     this.props.resetNewItemImage();
     this.setState({ fileSelected: '' });
@@ -100,7 +109,7 @@ class ShareItemForm extends Component {
     const { classes, tags, updateNewItem } = this.props;
     return (
       <Form
-        onSubmit={values => {
+        onSubmit={({ values, form }) => {
           const item = {
             variables: {
               NewItemInput: { ...values, tags: this.state.selectedTags }
@@ -108,9 +117,14 @@ class ShareItemForm extends Component {
           };
 
           this.props.addItemMutation(item);
+          this.reset(form);
         }}
         render={({ handleSubmit, invalid, pristine }) => (
-          <form onSubmit={handleSubmit}>
+          <form
+            onSubmit={event => {
+              handleSubmit(event);
+            }}
+          >
             <FormSpy
               subscription={{ values: true }}
               component={({ values }) => {
