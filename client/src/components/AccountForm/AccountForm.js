@@ -31,19 +31,15 @@ class AccountForm extends Component {
     return (
       <Form
         onSubmit={values => {
-          console.log(values);
-
           const input = {
             variables: { input: values }
           };
-          console.log(input);
           this.state.formToggle
             ? loginMutation(input).catch(error => this.setState({ error }))
             : signupMutation(input).catch(error => this.setState({ error }));
         }}
         render={({ handleSubmit, pristine, invalid, values }) => (
           <form onSubmit={handleSubmit} className={classes.accountForm}>
-            {console.log(values)}
             {!this.state.formToggle && (
               <FormControl fullWidth className={classes.formControl}>
                 <InputLabel htmlFor="fullname">Username</InputLabel>
@@ -104,9 +100,7 @@ class AccountForm extends Component {
                   variant="contained"
                   size="large"
                   color="secondary"
-                  disabled={
-                    false // @TODO: This prop should depend on pristine or valid state of form
-                  }
+                  disabled={false}
                 >
                   {this.state.formToggle ? 'Enter' : 'Create Account'}
                 </Button>
@@ -137,9 +131,6 @@ class AccountForm extends Component {
     );
   }
 }
-
-// @TODO: Use compose to add the login and signup mutations to this components props.
-// @TODO: Refetch the VIEWER_QUERY to reload the app and access authenticated routes.
 
 const refetchQueries = [
   {

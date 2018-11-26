@@ -99,7 +99,6 @@ class ShareItemForm extends Component {
   }
 
   handleSelectFile(event) {
-    console.log(this.fileInput.current);
     this.setState({
       fileSelected: this.fileInput.current.files[0]
     });

@@ -8,14 +8,12 @@ const httpWithUploadsLink = createUploadLink({
   includeExtensions: true,
 
   uri: process.env.NODE_ENV !== 'production' && 'http://localhost:8080/graphql',
-  // -------------------------------
   credentials: process.env.NODE_ENV === 'production' ? 'same-origin' : 'include'
 });
 
 const client = new ApolloClient({
   link: ApolloLink.from([
     onError(({ graphQLErrors, networkError }) => {
-      // Log better error messages to console
       if (graphQLErrors) {
         graphQLErrors.map(({ message, locations, path }) =>
           console.log(
@@ -27,7 +25,7 @@ const client = new ApolloClient({
     }),
     httpWithUploadsLink
   ]),
-  cache: new InMemoryCache() // Pull data from client-side cache, if available
+  cache: new InMemoryCache()
 });
 
 export default client;

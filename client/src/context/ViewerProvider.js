@@ -21,8 +21,7 @@ export default class ViewerProvider extends Component {
 
           if (data) {
             const viewer = data && data.viewer ? data.viewer : null;
-            console.log(data);
-            console.log(viewer);
+
             return (
               <ViewerContext.Provider value={{ viewer, loading }}>
                 {this.props.children}

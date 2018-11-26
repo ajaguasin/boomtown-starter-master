@@ -135,7 +135,6 @@ module.exports = postgres => {
               };
 
               const newItem = await client.query(itemQuery);
-              console.log(newItem);
 
               const tagIds = tags.map(tag => parseInt(tag));
 

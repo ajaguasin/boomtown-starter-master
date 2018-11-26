@@ -58,6 +58,12 @@ module.exports = gql`
     password: String!
   }
 
+  input SignUpInput {
+    email: String!
+    fullname: String!
+    password: String!
+  }
+
   type Query {
     user(id: ID!): User
     viewer: User
@@ -68,7 +74,7 @@ module.exports = gql`
 
   type Mutation {
     addItem(item: NewItemInput!): Item
-    signup(fullname: String, email: String, bio: String, password: String): User
+    signup(input: SignUpInput): User
     login(input: LoginInput): User
     logout: Boolean
   }

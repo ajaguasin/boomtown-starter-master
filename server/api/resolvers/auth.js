@@ -3,20 +3,6 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
 function setCookie({ tokenName, token, res }) {
-  /**
-   *  @TODO: Authentication - Server
-   *
-   *  This helper function is responsible for attaching a cookie to the HTTP
-   *  response. 'apollo-server-express' handles returning the response to the client.
-   *  We added the 'req' object to the resolver context so we can use it to atttach the cookie.
-   *  The 'req' object comes from express.
-   *
-   *  A secure cookie that can be used to store a user's session data has the following properties:
-   *  1) It can't be accessed from JavaScript
-   *  2) It will only be sent via https (but we'll have to disable this in development using NODE_ENV)
-   *  3) A boomtown cookie should oly be valid for 2 hours.
-   */
-  // Refactor this method with the correct configuration values.
   res.cookie(tokenName, token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
@@ -52,7 +38,6 @@ module.exports = app => {
         const user = await context.pgResource.createUser({
           email: args.email,
           fullname: args.fullname,
-          bio: args.bio,
           password: hashedPassword
         });
 
@@ -72,8 +57,6 @@ module.exports = app => {
 
     async login(parent, args, context) {
       try {
-        console.log(args);
-
         const user = await context.pgResource.getUserAndPasswordForVerification(
           args.input.email
         );
@@ -87,8 +70,7 @@ module.exports = app => {
           token: generateToken(user, app.get('JWT_SECRET')),
           res: context.req.res
         });
-        console.log('user: ', user);
-        console.log('fullname: ', user.fullname);
+
         return {
           id: user.id,
           fullname: user.fullname

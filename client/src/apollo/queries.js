@@ -85,28 +85,6 @@ export const ADD_ITEM_MUTATION = gql`
   }
 `;
 
-// export const ADD_USER_MUTATION = gql`
-//   mutation addUser(
-//     $fullname: String!
-//     $email: String!
-//     $bio: String
-//     $password: String!
-//   ) {
-//     addUser(
-//       email: $email
-//       fullname: $fullname
-//       bio: $bio
-//       password: $password
-//     ) {
-//       User
-//     }
-//   }
-// `;
-
-//
-//   Auth-related queries and mutations.
-//
-
 export const VIEWER_QUERY = gql`
   query {
     # @TODO: Query the id, email, fullname, and bio fields for the viewer.
@@ -124,8 +102,8 @@ export const LOGOUT_MUTATION = gql`
 `;
 
 export const SIGNUP_MUTATION = gql`
-  mutation signup($user: SignupInput!) {
-    signup(user: $user) {
+  mutation signup($input: SignUpInput!) {
+    signup(input: $input) {
       id
     }
   }
