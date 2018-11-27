@@ -3,10 +3,11 @@ import Grid from '@material-ui/core/Grid';
 import React from 'react';
 import Typography from '@material-ui/core/Typography';
 import AccountForm from '../../components/AccountForm';
+import PropTypes from 'prop-types';
 
 import styles from './styles';
 
-const Home = ({ classes }) => {
+const Home = ({ classes }, props) => {
   return (
     <Grid
       container
@@ -38,3 +39,11 @@ const Home = ({ classes }) => {
 };
 
 export default withStyles(styles)(Home);
+
+Home.propTypes = {
+  classes: PropTypes.shape({
+    headline: PropTypes.string.isRequired,
+    root: PropTypes.string.isRequired,
+    subheading: PropTypes.string.isRequired
+  })
+};

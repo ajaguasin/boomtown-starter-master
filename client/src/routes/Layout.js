@@ -11,8 +11,6 @@ export default () => (
   <ViewerContext.Consumer>
     {({ viewer }) => (
       <Fragment>
-        {console.log(viewer)}
-
         {viewer ? (
           <Fragment>
             <NavComponent />
@@ -21,14 +19,14 @@ export default () => (
               <Route exact path="/share" component={Share} />
               <Route exact path="/profile" component={Profile} />
 
-              <Redirect to="/items" />
+              {/* <Redirect to="/items" /> */}
             </Switch>
           </Fragment>
         ) : (
           !viewer && (
             <Switch>
               <Route exact path="/welcome" component={Home} />
-              <Redirect to="/welcome" />
+              {/* <Redirect to="/welcome" /> */}
             </Switch>
           )
         )}

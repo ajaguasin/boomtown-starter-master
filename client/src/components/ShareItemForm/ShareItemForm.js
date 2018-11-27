@@ -20,6 +20,7 @@ import {
 import { ADD_ITEM_MUTATION } from '../../apollo/queries';
 import { connect } from 'react-redux';
 import styles from './styles';
+import PropTypes from 'prop-types';
 
 class ShareItemForm extends Component {
   constructor(props) {
@@ -104,6 +105,7 @@ class ShareItemForm extends Component {
   }
 
   render() {
+    console.log(this.props);
     const { classes, tags, updateNewItem } = this.props;
     return (
       <Form
@@ -277,3 +279,11 @@ export default connect(
     withStyles(styles)
   )(ShareItemForm)
 );
+
+ShareItemForm.propTypes = {
+  addItemMutation: PropTypes.func.isRequired,
+  classes: PropTypes.object.isRequired,
+  resetNewItem: PropTypes.func.isRequired,
+  resetNewItemImage: PropTypes.func.isRequired,
+  updateNewItem: PropTypes.func.isRequired
+};

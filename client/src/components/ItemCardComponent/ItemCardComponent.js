@@ -7,7 +7,6 @@ import {
   Typography,
   withStyles
 } from '@material-ui/core';
-
 import Gravatar from 'react-gravatar';
 import PropTypes from 'prop-types';
 import React from 'react';
@@ -40,7 +39,6 @@ const ItemCardComponent = ({ classes, item }) => {
             title={item.owner.fullname ? item.owner.fullname : viewer.fullname}
             subheader={moment(item.createdon).fromNow()}
           />
-
           <CardContent>
             <Typography>{item.title}</Typography>
             <Typography>
@@ -60,6 +58,6 @@ const ItemCardComponent = ({ classes, item }) => {
 export default withStyles(styles)(ItemCardComponent);
 
 ItemCardComponent.propTypes = {
-  item: PropTypes.object,
-  classes: PropTypes.object
+  item: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };

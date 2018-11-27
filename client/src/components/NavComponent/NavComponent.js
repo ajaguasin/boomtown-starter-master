@@ -1,7 +1,7 @@
 import { AppBar, Button, IconButton, withStyles } from '@material-ui/core';
 import { Link, withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
-
+import PropTypes from 'prop-types';
 import AddIcon from '@material-ui/icons/AddCircle';
 import BoomtownLogo from '../../images/boomtown.svg';
 import MenuComponent from '../MenuComponent';
@@ -35,3 +35,12 @@ class NavComponent extends Component {
 }
 
 export default withRouter(withStyles(styles)(NavComponent));
+
+NavComponent.propTypes = {
+  classes: PropTypes.shape({
+    img: PropTypes.string.isRequired,
+    root: PropTypes.string.isRequired
+  }),
+  history: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired
+};

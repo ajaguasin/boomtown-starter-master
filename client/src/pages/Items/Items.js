@@ -3,6 +3,7 @@ import ItemCardComponent from '../../components/ItemCardComponent';
 import React from 'react';
 import styles from './styles';
 import { withStyles } from '@material-ui/core/styles';
+import Proptypes from 'prop-types';
 
 const Items = ({ classes, data }) => {
   return (
@@ -30,3 +31,8 @@ const Items = ({ classes, data }) => {
 };
 
 export default withStyles(styles)(Items);
+
+Items.propTypes = {
+  classes: Proptypes.object.isRequired,
+  data: Proptypes.object.isRequired
+};

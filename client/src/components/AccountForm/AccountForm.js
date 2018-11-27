@@ -15,6 +15,7 @@ import Typography from '@material-ui/core/Typography';
 import styles from './styles';
 import validate from './helpers/validation';
 import { withStyles } from '@material-ui/core/styles';
+import { PropTypes } from 'prop-types';
 
 class AccountForm extends Component {
   constructor(props) {
@@ -132,6 +133,18 @@ class AccountForm extends Component {
     );
   }
 }
+
+AccountForm.propTypes = {
+  classes: PropTypes.shape({
+    accountForm: PropTypes.string.isRequired,
+    errorMessage: PropTypes.string.isRequired,
+    formButton: PropTypes.string.isRequired,
+    formControl: PropTypes.string.isRequired,
+    formToggle: PropTypes.string.isRequired
+  }),
+  loginMutation: PropTypes.func.isRequired,
+  signupMutation: PropTypes.func.isRequired
+};
 
 const refetchQueries = [
   {

@@ -1,7 +1,7 @@
 import { LOGOUT_MUTATION, VIEWER_QUERY } from '../../apollo/queries';
 import React, { Component } from 'react';
 import { compose, graphql } from 'react-apollo';
-
+import { PropTypes } from 'prop-types';
 import IconButton from '@material-ui/core/IconButton';
 import { Link } from 'react-router-dom';
 import Menu from '@material-ui/core/Menu';
@@ -29,10 +29,6 @@ class MenuComponent extends Component {
     const { anchorEl } = this.state;
     const open = Boolean(anchorEl);
     const logoutMutation = this.props.logoutMutation;
-    const options = [
-      { title: 'Your Profile', path: '/profile' },
-      { title: 'Sign Out', path: '/welcome', onClick: logoutMutation }
-    ];
     return (
       <React.Fragment>
         <IconButton
@@ -94,3 +90,10 @@ export default compose(
 
   withStyles(styles)
 )(MenuComponent);
+
+MenuComponent.propTypes = {
+  classes: PropTypes.shape({
+    menuItem: PropTypes.string.isRequired
+  }),
+  logoutMutation: PropTypes.func.isRequired
+};
