@@ -14,16 +14,17 @@ function tagsQueryString(tags, itemid, result) {
 
 module.exports = postgres => {
   return {
-    async createUser({ email, fullname, bio, password }) {
+    async createUser({ email, fullname, password }) {
       const newUserInsert = {
         text:
-          'INSERT INTO "public"."users"("email", "fullname", "bio", "password") VALUES($1, $2, $3, $4) RETURNING "id", "email", "fullname", "bio", "password";',
-        values: [email, fullname, bio, password]
+          'INSERT INTO "public"."users"("email", "fullname", "password") VALUES($1, $2, $3) RETURNING "id", "email", "fullname", "password";',
+        values: [email, fullname, password]
       };
       try {
         const user = await postgres.query(newUserInsert);
         return user.rows[0];
       } catch (e) {
+        console.log(e);
         switch (true) {
           case /users_fullname_key/.test(e.message):
             throw 'An account with this username already exists.';

@@ -17,7 +17,6 @@ import {
   resetNewItemImage,
   updateNewItem
 } from '../../redux/modules/ShareItemPreview';
-
 import { ADD_ITEM_MUTATION } from '../../apollo/queries';
 import { connect } from 'react-redux';
 import styles from './styles';
@@ -108,7 +107,7 @@ class ShareItemForm extends Component {
     const { classes, tags, updateNewItem } = this.props;
     return (
       <Form
-        onSubmit={({ values, form }) => {
+        onSubmit={(values, form) => {
           const item = {
             variables: {
               NewItemInput: { ...values, tags: this.state.selectedTags }

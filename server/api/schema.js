@@ -74,7 +74,7 @@ module.exports = gql`
 
   type Mutation {
     addItem(item: NewItemInput!): Item
-    signup(input: SignUpInput): User
+    signup(input: SignUpInput!): User
     login(input: LoginInput): User
     logout: Boolean
   }

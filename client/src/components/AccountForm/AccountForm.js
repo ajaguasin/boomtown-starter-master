@@ -38,7 +38,8 @@ class AccountForm extends Component {
             ? loginMutation(input).catch(error => this.setState({ error }))
             : signupMutation(input).catch(error => this.setState({ error }));
         }}
-        render={({ handleSubmit, pristine, invalid, values }) => (
+        validate={validate.bind(this)}
+        render={({ handleSubmit, pristine, invalid, values, form }) => (
           <form onSubmit={handleSubmit} className={classes.accountForm}>
             {!this.state.formToggle && (
               <FormControl fullWidth className={classes.formControl}>
@@ -100,7 +101,7 @@ class AccountForm extends Component {
                   variant="contained"
                   size="large"
                   color="secondary"
-                  disabled={false}
+                  disabled={pristine || invalid}
                 >
                   {this.state.formToggle ? 'Enter' : 'Create Account'}
                 </Button>
@@ -109,7 +110,7 @@ class AccountForm extends Component {
                     className={classes.formToggle}
                     type="button"
                     onClick={() => {
-                      // @TODO: Reset the form on submit
+                      form.reset();
                       this.setState({
                         formToggle: !this.state.formToggle
                       });

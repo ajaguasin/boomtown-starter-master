@@ -12,14 +12,13 @@ function setCookie({ tokenName, token, res }) {
 }
 
 function generateToken(user, secret) {
-  const { id, email, fullname, bio } = user;
+  const { id, email, fullname } = user;
 
   const token = jwt.sign(
     {
       id: id,
       email: email,
-      fullname: fullname,
-      bio: bio
+      fullname: fullname
     },
     secret,
     { expiresIn: '2h' }
@@ -32,12 +31,12 @@ module.exports = app => {
   return {
     async signup(parent, args, context) {
       try {
-        const hashedPassword = bcrypt.hashSync(args.password);
+        const hashedPassword = bcrypt.hashSync(args.input.password);
         // -------------------------------
 
         const user = await context.pgResource.createUser({
-          email: args.email,
-          fullname: args.fullname,
+          email: args.input.email,
+          fullname: args.input.fullname,
           password: hashedPassword
         });
 

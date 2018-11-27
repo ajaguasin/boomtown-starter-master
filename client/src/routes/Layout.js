@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
-
 import Home from '../pages/Home';
 import Items from '../pages/Items';
 import NavComponent from '../components/NavComponent';
@@ -10,8 +9,10 @@ import { ViewerContext } from '../context/ViewerProvider';
 
 export default () => (
   <ViewerContext.Consumer>
-    {({ viewer, loading }) => (
+    {({ viewer }) => (
       <Fragment>
+        {console.log(viewer)}
+
         {viewer ? (
           <Fragment>
             <NavComponent />
@@ -19,16 +20,17 @@ export default () => (
               <Route exact path="/items" component={Items} />
               <Route exact path="/share" component={Share} />
               <Route exact path="/profile" component={Profile} />
-              <Route exact path="/profile/:id" component={Profile} />
 
-              <Redirect from="*" to="/items" />
+              <Redirect to="/items" />
             </Switch>
           </Fragment>
         ) : (
-          <Switch>
-            <Route exact path="/welcome" component={Home} />
-            <Redirect from="*" to="/welcome" />
-          </Switch>
+          !viewer && (
+            <Switch>
+              <Route exact path="/welcome" component={Home} />
+              <Redirect to="/welcome" />
+            </Switch>
+          )
         )}
       </Fragment>
     )}
