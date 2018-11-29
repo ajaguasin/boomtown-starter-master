@@ -101,6 +101,7 @@ module.exports = app => {
 
       async addItem(parent, args, context, info) {
         const user = await jwt.decode(context.token, app.get('JWT_SECRET'));
+
         const newItem = await context.pgResource.saveNewItem({
           item: args.item,
           user: user,

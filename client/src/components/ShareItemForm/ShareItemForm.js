@@ -11,7 +11,6 @@ import {
 } from '@material-ui/core';
 import { Field, Form, FormSpy } from 'react-final-form';
 import React, { Component } from 'react';
-import { compose, graphql } from 'react-apollo';
 import {
   resetNewItem,
   resetNewItemImage,
@@ -21,6 +20,7 @@ import { ADD_ITEM_MUTATION } from '../../apollo/queries';
 import { connect } from 'react-redux';
 import styles from './styles';
 import PropTypes from 'prop-types';
+import { Mutation } from 'react-apollo';
 
 class ShareItemForm extends Component {
   constructor(props) {
@@ -105,155 +105,157 @@ class ShareItemForm extends Component {
   }
 
   render() {
-    console.log(this.props);
     const { classes, tags, updateNewItem } = this.props;
     return (
-      <Form
-        onSubmit={(values, form) => {
-          const item = {
-            variables: {
-              NewItemInput: { ...values, tags: this.state.selectedTags }
-            }
-          };
+      <Mutation mutation={ADD_ITEM_MUTATION}>
+        {(addItem, { data }) => {
+          return (
+            <Form
+              onSubmit={(values, form) => {
+                const item = {
+                  variables: {
+                    NewItemInput: { ...values, tags: this.state.selectedTags }
+                  }
+                };
 
-          this.props.addItemMutation(item);
-          this.reset(form);
-        }}
-        render={({ handleSubmit, invalid, pristine }) => (
-          <form
-            onSubmit={event => {
-              handleSubmit(event);
-            }}
-          >
-            <FormSpy
-              subscription={{ values: true }}
-              component={({ values }) => {
-                if (values) {
-                  this.dispatchUpdate(values, tags.tags, updateNewItem);
-                }
-                return '';
+                addItem(item);
+                this.reset(form);
               }}
-            />
-            <h1 className={classes.h1}>Share. Borrow. Prosper.</h1>
-            <fieldset className={classes.fieldset}>
-              <Field
-                name="imageurl"
-                render={({ input, meta }) => (
-                  <React.Fragment>
-                    {!this.state.fileSelected ? (
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => this.fileInput.current.click()}
-                        className={classes.button}
-                        {...input}
-                      >
-                        Select an image
-                      </Button>
-                    ) : (
-                      <Button
-                        variant="contained"
-                        color="primary"
-                        onClick={() => this.resetFileInput()}
-                        className={classes.button}
-                        {...input}
-                      >
-                        Reset image
-                      </Button>
-                    )}
-                    <input
-                      type="file"
-                      accept="image/*"
-                      ref={this.fileInput}
-                      onChange={event => this.handleSelectFile(event)}
-                      hidden
-                    />
-                  </React.Fragment>
-                )}
-              />
-
-              <Field
-                name="title"
-                render={({ input, meta }) => (
-                  <TextField
-                    className={classes.textField}
-                    id="itemNameInput"
-                    type="text"
-                    placeholder="Name your item"
-                    inputProps={{ ...input }}
+              render={({ handleSubmit, invalid, pristine }) => (
+                <form
+                  onSubmit={event => {
+                    handleSubmit(event);
+                  }}
+                >
+                  <FormSpy
+                    subscription={{ values: true }}
+                    component={({ values }) => {
+                      if (values) {
+                        this.dispatchUpdate(values, tags.tags, updateNewItem);
+                      }
+                      return '';
+                    }}
                   />
-                )}
-              />
-
-              <Field
-                name="description"
-                render={({ input, meta }) => (
-                  <TextField
-                    className={classes.textField}
-                    id="descriptionInput"
-                    type="text"
-                    placeholder="Describe your item"
-                    inputProps={{ ...input }}
-                  />
-                )}
-              />
-
-              <Field name="tags">
-                {({ input, meta }) => (
-                  <React.Fragment>
-                    <InputLabel
-                      htmlFor="select-multiple-checkbox"
-                      className={classes.label}
-                    >
-                      Tag
-                    </InputLabel>
-                    <Select
-                      multiple
-                      className={classes.textField}
-                      renderValue={selectedTags => {
-                        return this.generateTagsText(tags.tags, selectedTags);
-                      }}
-                      input={<Input id="select-multiple-checkbox" />}
-                      value={this.state.selectedTags}
-                      onChange={event => this.handleSelectTag(event)}
-                      label="Add some tags"
-                    >
-                      {tags.tags.map((tag, index) => (
-                        <MenuItem key={index} value={tag.id}>
-                          <Checkbox
-                            checked={
-                              this.state.selectedTags.indexOf(tag.id) > -1
-                            }
+                  <h1 className={classes.h1}>Share. Borrow. Prosper.</h1>
+                  <fieldset className={classes.fieldset}>
+                    <Field
+                      name="imageurl"
+                      render={({ input, meta }) => (
+                        <React.Fragment>
+                          {!this.state.fileSelected ? (
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              onClick={() => this.fileInput.current.click()}
+                              className={classes.button}
+                              {...input}
+                            >
+                              Select an image
+                            </Button>
+                          ) : (
+                            <Button
+                              variant="contained"
+                              color="primary"
+                              onClick={() => this.resetFileInput()}
+                              className={classes.button}
+                              {...input}
+                            >
+                              Reset image
+                            </Button>
+                          )}
+                          <input
+                            type="file"
+                            accept="image/*"
+                            ref={this.fileInput}
+                            onChange={event => this.handleSelectFile(event)}
+                            hidden
                           />
-                          <ListItemText primary={tag.title} />
-                        </MenuItem>
-                      ))}
-                    </Select>
-                  </React.Fragment>
-                )}
-              </Field>
+                        </React.Fragment>
+                      )}
+                    />
 
-              <Button
-                id="submit"
-                type="submit"
-                variant="outlined"
-                disabled={pristine || invalid}
-              >
-                Share
-              </Button>
-            </fieldset>
-          </form>
-        )}
-      />
+                    <Field
+                      name="title"
+                      render={({ input, meta }) => (
+                        <TextField
+                          className={classes.textField}
+                          id="itemNameInput"
+                          type="text"
+                          placeholder="Name your item"
+                          inputProps={{ ...input }}
+                        />
+                      )}
+                    />
+
+                    <Field
+                      name="description"
+                      render={({ input, meta }) => (
+                        <TextField
+                          className={classes.textField}
+                          id="descriptionInput"
+                          type="text"
+                          placeholder="Describe your item"
+                          inputProps={{ ...input }}
+                        />
+                      )}
+                    />
+
+                    <Field name="tags">
+                      {({ input, meta }) => (
+                        <React.Fragment>
+                          <InputLabel
+                            htmlFor="select-multiple-checkbox"
+                            className={classes.label}
+                          >
+                            Tag
+                          </InputLabel>
+                          <Select
+                            multiple
+                            className={classes.textField}
+                            renderValue={selectedTags => {
+                              return this.generateTagsText(
+                                tags.tags,
+                                selectedTags
+                              );
+                            }}
+                            input={<Input id="select-multiple-checkbox" />}
+                            value={this.state.selectedTags}
+                            onChange={event => this.handleSelectTag(event)}
+                            label="Add some tags"
+                          >
+                            {tags.tags.map((tag, index) => (
+                              <MenuItem key={index} value={tag.id}>
+                                <Checkbox
+                                  checked={
+                                    this.state.selectedTags.indexOf(tag.id) > -1
+                                  }
+                                />
+                                <ListItemText primary={tag.title} />
+                              </MenuItem>
+                            ))}
+                          </Select>
+                        </React.Fragment>
+                      )}
+                    </Field>
+
+                    <Button
+                      id="submit"
+                      type="submit"
+                      variant="outlined"
+                      disabled={pristine || invalid}
+                    >
+                      Share
+                    </Button>
+                  </fieldset>
+                </form>
+              )}
+            />
+          );
+        }}
+      </Mutation>
     );
   }
 }
-
-const refetchQueries = [
-  {
-    query: ADD_ITEM_MUTATION
-  }
-];
 
 const mapDispatchToProps = dispatch => ({
   updateNewItem(item) {
@@ -270,18 +272,9 @@ const mapDispatchToProps = dispatch => ({
 export default connect(
   null,
   mapDispatchToProps
-)(
-  compose(
-    graphql(ADD_ITEM_MUTATION, {
-      options: { refetchQueries },
-      name: 'addItemMutation'
-    }),
-    withStyles(styles)
-  )(ShareItemForm)
-);
+)(withStyles(styles)(ShareItemForm));
 
 ShareItemForm.propTypes = {
-  addItemMutation: PropTypes.func.isRequired,
   classes: PropTypes.object.isRequired,
   resetNewItem: PropTypes.func.isRequired,
   resetNewItemImage: PropTypes.func.isRequired,

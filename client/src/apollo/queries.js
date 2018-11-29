@@ -86,8 +86,7 @@ export const ADD_ITEM_MUTATION = gql`
 `;
 
 export const VIEWER_QUERY = gql`
-  query {
-    # @TODO: Query the id, email, fullname, and bio fields for the viewer.
+  query viewer {
     viewer {
       id
       fullname
