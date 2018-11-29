@@ -1,5 +1,5 @@
 import { Card, CardContent, Grid, Typography } from '@material-ui/core';
-
+import Gravatar from 'react-gravatar';
 import ItemCardComponent from '../../components/ItemCardComponent';
 import React from 'react';
 import styles from './styles';
@@ -12,6 +12,8 @@ const Profile = ({ classes, data }) => {
         <Grid item xs={12} className={classes.profileCard}>
           <Card>
             <CardContent>
+              <Gravatar className={classes.avatar} email={data.user.email} />
+
               <Typography variant="display1" component="h1">
                 {data.user.fullname}
               </Typography>

@@ -17,6 +17,5 @@ export default withStyles(styles)(LoadingScreen);
 LoadingScreen.propTypes = {
   classes: PropTypes.shape({
     container: PropTypes.string.isRequired
-    // progress: PropTypes.string.isRequired
   })
 };
